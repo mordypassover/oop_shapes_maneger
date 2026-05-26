@@ -1,5 +1,4 @@
 from math import pi
-
 from shape import Shape
 
 
