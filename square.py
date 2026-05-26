@@ -17,5 +17,5 @@ class Square(Shape):
         return {
             "id": self.id,
             "type": self.shape_type,
-            "radius": self.side
+            "side": self.side
             }
