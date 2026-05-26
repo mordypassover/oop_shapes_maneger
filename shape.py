@@ -8,3 +8,5 @@ class Shape:
         pass
     def to_dict(self):
         pass
+    def get_shape_id(self):
+        return self.id
