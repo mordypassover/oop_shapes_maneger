@@ -2,9 +2,9 @@ from shape import Shape
 
 
 class Rectangle(Shape):
-    def __init__(self, shape_type = "rectangle"):
+    def __init__(self, param_s, shape_type = "rectangle"):
         super().__init__(shape_type)
-        self.length, self.width = self.get_shape_param_s()
+        self.length, self.width = param_s
 
     def get_area(self):
         return self.length * self.width
@@ -19,7 +19,3 @@ class Rectangle(Shape):
             "length": self.length,
             "width": self.width
             }
-
-    def get_shape_param_s(self):
-        return (int(input("enter length: ")),
-                int(input("enter width:")))
