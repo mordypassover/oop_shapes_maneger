@@ -14,12 +14,12 @@ class ShapeManager:
         self.shapes = []
         # self.load_from_json()
 
-    def create_shape(self, shape):
+    def create_shape(self, shape,  param_s):
         logging.info("started to create a shape")
         shape_dict = {"square" : Square, "circle" : Circle, "rectangle" : Rectangle}
         if shape in shape_dict:
             try:
-                self.shapes.append( shape_dict[shape]())
+                self.shapes.append( shape_dict[shape](param_s))
             except ValueError :
                 logging.error("input not valid!")
             logging.info("finished to create shape")
@@ -40,5 +40,11 @@ class ShapeManager:
 
 if __name__ == "__main__":
     sm = ShapeManager()
-    sm.create_shape("square")
-    print(sm.shapes )
+    sm.create_shape("circle",(1,))
+    sm.create_shape("square", (3,))
+    sm.create_shape("rectangle",(4, 5))
+    print(sm.get_all_shapes() )
+    print(sm.get_all_shapes()[1].id)
+    print(sm.get_all_shapes()[2].shape_type)
+
+
