@@ -14,7 +14,7 @@ class ShapeManager:
         self.shapes = []
         # self.load_from_json()
 
-    def create_shape(self, shape,  param_s):
+    def create_shape(self, shape:str,  param_s:tuple):
         logging.info("started to create a shape")
         shape_dict = {"square" : Square, "circle" : Circle, "rectangle" : Rectangle}
         if shape in shape_dict:
@@ -40,7 +40,7 @@ class ShapeManager:
 
 if __name__ == "__main__":
     sm = ShapeManager()
-    sm.create_shape("circle",(1,))
+    sm.create_shape("circle",(2,))
     sm.create_shape("square", (3,))
     sm.create_shape("rectangle",(4, 5))
     print(sm.get_all_shapes() )
