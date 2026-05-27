@@ -1,8 +1,15 @@
-import shape_manager
+from shape_manager import ShapeManager
 
 
-def add_shape(shape):
-    SHAPEMANAGER.create_shape(shape)
+def get_shape_params_():
+    user_input=input("enter shape param(if more ten 1, add spase!):")
+    return tuple(user_input.split())
+
+
+def add_shape(manager_class):
+    shape = input("enter shape: ")
+    param_s = get_shape_params_()
+    manager_class.create_shape(shape, param_s)
 
 
 def show_all_shapes():
@@ -18,28 +25,29 @@ def delete_shape():
 
 
 def menu():
-    print("to add shape enter 1\n"
+     return input("to add shape enter 1\n"
           "to show all shapes enter 2\n"
           "to update shape enter 3\n"
           "to delete sape enter 4\n"
-          "to exit enter 5")
+          "to exit enter 5\n: ")
 
 
 def main():
-    SHAPEMANAGER = shape_manager.ShapeManager()
+    SHAPEMANAGER = ShapeManager()
     flag = True
+
     while flag:
-        menu()
-        if 1:
-            add_shape()
-        elif 2:
+        user_input = menu()
+        if user_input == "1":
+            add_shape(SHAPEMANAGER)
+        elif user_input == "2":
             show_all_shapes()
-        elif 3:
+        elif user_input == "3":
             update_shape()
-        elif 4:
+        elif user_input == "4":
             delete_shape()
 
-        elif 5:
+        elif user_input == "5":
             flag = False
         else:
             pass
