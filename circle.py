@@ -4,9 +4,9 @@ from shape import Shape
 
 class Circle(Shape):
 
-    def __init__(self, shape_type = "circle"):
+    def __init__(self, param_s, shape_type = "circle"):
         super().__init__(shape_type)
-        self.radius = self.get_shape_param_s()
+        self.radius = param_s[0]
 
 
     def get_area(self):
@@ -21,5 +21,3 @@ class Circle(Shape):
             "type": self.shape_type,
             "radius": self.radius
             }
-    def get_shape_param_s(self):
-        return int(input("get radius: "))
