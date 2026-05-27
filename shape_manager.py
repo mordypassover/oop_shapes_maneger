@@ -31,13 +31,22 @@ class ShapeManager:
 
     def update_shape(self, shape_id, new_data):
         for instance in self.get_all_shapes():
-            if instance.id == shape_id :
+            if instance.get_id() == shape_id :
                 self.delete_shape(shape_id)
                 self.create_shape(instance.shape_type, new_data,shape_id = shape_id)
+                return
+        logger.warning(f"object with id - {shape_id} not found")
 
 
     def delete_shape(self, shape_id):
-        pass
+        instance_list = self.get_all_shapes()
+        for instance in instance_list:
+            if instance.get_id() == shape_id :
+                instance_list.remove(instance)
+                return
+        logger.warning(f"object with id - {shape_id} not found")
+
+
     def save_to_json(self):
         pass
     def load_from_json(self):
