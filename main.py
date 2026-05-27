@@ -51,3 +51,6 @@ def main():
             flag = False
         else:
             pass
+
+if __name__ == "__main__":
+    main()
