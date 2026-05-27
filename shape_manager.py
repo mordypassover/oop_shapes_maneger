@@ -17,4 +17,5 @@ class ShapeManager:
     def save_to_json(self):
         pass
     def load_from_json(self):
-        pass
+        with open("shapes.json", "r", encoding="utf-8") as f:
+            return json.load(f)
