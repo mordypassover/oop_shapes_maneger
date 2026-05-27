@@ -2,9 +2,9 @@ from shape import Shape
 
 
 class Square(Shape):
-    def __init__(self, shape_id, shape_type, side):
-        super().__init__(shape_id, shape_type)
-        self.side = side
+    def __init__(self, shape_type = "square"):
+        super().__init__(shape_type)
+        self.side = self.get_shape_param_s()
 
 
     def get_area(self):
@@ -19,3 +19,5 @@ class Square(Shape):
             "type": self.shape_type,
             "side": self.side
             }
+    def get_shape_param_s(self):
+        return int(input("get side: "))
