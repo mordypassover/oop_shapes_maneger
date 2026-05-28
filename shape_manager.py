@@ -59,7 +59,29 @@ class ShapeManager:
             return
 
         with open("shapes.json", "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+            for item in data:
+                shape_type = item.get('shape_type')
+                if shape_type == "circle":
+                    params = (item.get('radius'),)
+                elif shape_type == "square":
+                    params = (item.get('side'),)
+                elif shape_type == "rectangle":
+                    params = (item.get('width'), item.get('height'))
+                else:
+                    logger.warning("shape not suported")
+
+
+                self.create_shape(shape_type, params )
+
+        logger.info(f"successfully loaded {len(data)} shapes from json ")
+
+
+    def get_id(self):
+        logger.info("started looking for id")
+        new_id =  1 if not self.shapes else (max(shape.shape_id for shape in self.shapes) +1)
+        logger.info("got new id")
+        return new_id
 
 if __name__ == "__main__":
     sm = ShapeManager()
