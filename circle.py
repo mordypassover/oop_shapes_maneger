@@ -4,8 +4,8 @@ from shape import Shape
 
 class Circle(Shape):
 
-    def __init__(self, param_s, shape_type = "circle"):
-        super().__init__(shape_type)
+    def __init__(self, param_s, shape_id, shape_type = "circle"):
+        super().__init__(shape_type, shape_id)
         self.radius = param_s[0]
 
 
