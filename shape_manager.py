@@ -35,6 +35,10 @@ class ShapeManager:
     def get_all_shapes(self):
         return self.shapes
 
+    def show_shapes_as_dicts(self):
+        logger.info("getting all shapes")
+        return [shape.to_dict for shape in self.shapes]
+
 
     def update_shape(self, shape_id, new_data):
         for instance in self.get_all_shapes():
