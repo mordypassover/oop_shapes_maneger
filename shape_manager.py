@@ -54,6 +54,10 @@ class ShapeManager:
 
 
     def load_from_json(self):
+        if  os.path.getsize("shapes.json") == 0:
+            logger.info("shapes.json is empty or does not exist. Starting fresh.")
+            return
+
         with open("shapes.json", "r", encoding="utf-8") as f:
             return json.load(f)
 
