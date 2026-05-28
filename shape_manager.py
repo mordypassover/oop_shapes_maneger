@@ -48,7 +48,11 @@ class ShapeManager:
 
 
     def save_to_json(self):
-        pass
+        json_loadable_list = [shape_inst.__dict__ for shape_inst in self.shapes]
+        with open("shapes.json", "w", encoding="utf-8") as file:
+            json.dump(json_loadable_list, file, ensure_ascii=False, indent=4)
+
+
     def load_from_json(self):
         with open("shapes.json", "r", encoding="utf-8") as f:
             return json.load(f)
