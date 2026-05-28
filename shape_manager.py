@@ -1,4 +1,5 @@
 import json
+import os
 import logging
 from square import Square
 from circle import Circle
@@ -13,27 +14,33 @@ logger = logging.getLogger(__name__)
 class ShapeManager:
     def __init__(self):
         self.shapes = []
-        # self.load_from_json()
+        self.load_from_json()
 
-    def create_shape(self, shape:str,  param_s:tuple ,shape_id = Shape.counter):
+    def create_shape(self, shape: str, param_s: tuple, forced_id=None):
         logging.info("started to create a shape")
-        shape_dict = {"square" : Square, "circle" : Circle, "rectangle" : Rectangle}
+
+        new_id = forced_id if forced_id is not None else self.get_id()
+        shape_dict = {"square": Square, "circle": Circle, "rectangle": Rectangle}
         if shape in shape_dict:
             try:
-                self.shapes.append( shape_dict[shape](param_s))
-            except ValueError :
+                self.shapes.append(shape_dict[shape](param_s, shape_id=new_id))
+            except ValueError:
                 logging.error("input not valid!")
+                raise
             logging.info("finished to create shape")
         else:
-            logging.error(f"shape -{shape} not supported")
+            logging.error(f"shape - {shape} not supported")
+
+
     def get_all_shapes(self):
         return self.shapes
+
 
     def update_shape(self, shape_id, new_data):
         for instance in self.get_all_shapes():
             if instance.get_id() == shape_id :
                 self.delete_shape(shape_id)
-                self.create_shape(instance.shape_type, new_data,shape_id = shape_id)
+                self.create_shape(instance.shape_type, new_data)
                 return
         logger.warning(f"object with id - {shape_id} not found")
 
@@ -93,16 +100,4 @@ if __name__ == "__main__":
     print(sm.get_all_shapes()[2].shape_type)
 
     sm.save_to_json()
-
-    sm2 = ShapeManager()
-    sm2.load_from_json()
-    sm2.create_shape("circle", (2,))
-    sm2.create_shape("square", (3,))
-    sm2.create_shape("rectangle", (4, 5))
-    print(sm2.get_all_shapes())
-    print(sm2.get_all_shapes()[5].shape_id)
-    print(sm2.get_all_shapes()[4].shape_type)
-
-    sm2.save_to_json()
-
 
