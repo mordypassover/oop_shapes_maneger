@@ -17,7 +17,7 @@ class Circle(Shape):
 
     def to_dict(self):
         return {
-            "id": self.id,
+            "id": self.shape_id,
             "type": self.shape_type,
             "radius": self.radius
             }
