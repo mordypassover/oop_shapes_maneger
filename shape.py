@@ -1,9 +1,8 @@
 class Shape:
-    counter = 0
-    def __init__(self, shape_type):
-        self.id = Shape.counter
+    def __init__(self, shape_type, shape_id):
+        self.shape_id = shape_id
         self.shape_type = shape_type
-        Shape.counter += 1
+
 
     def get_area(self):
         pass
@@ -12,6 +11,6 @@ class Shape:
     def to_dict(self):
         pass
     def get_shape_id(self):
-        return self.id
+        return self.shape_id
     def get_shape_param_s(self):
         pass

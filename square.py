@@ -2,9 +2,9 @@ from shape import Shape
 
 
 class Square(Shape):
-    def __init__(self, parsam_s, shape_type = "square"):
-        super().__init__(shape_type)
-        self.side = parsam_s[0]
+    def __init__(self, param_s, shape_id, shape_type = "square"):
+        super().__init__(shape_type, shape_id)
+        self.side = param_s[0]
 
 
     def get_area(self):
@@ -15,7 +15,7 @@ class Square(Shape):
 
     def to_dict(self):
         return {
-            "id": self.id,
+            "id": self.shape_id,
             "type": self.shape_type,
             "side": self.side
             }
