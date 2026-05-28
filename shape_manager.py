@@ -89,7 +89,7 @@ if __name__ == "__main__":
     sm.create_shape("square", (3,))
     sm.create_shape("rectangle",(4, 5))
     print(sm.get_all_shapes() )
-    print(sm.get_all_shapes()[1].id)
+    print(sm.get_all_shapes()[1].shape_id)
     print(sm.get_all_shapes()[2].shape_type)
 
     sm.save_to_json()
