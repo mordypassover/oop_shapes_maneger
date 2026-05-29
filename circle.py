@@ -6,7 +6,7 @@ class Circle(Shape):
 
     def __init__(self, param_s, shape_id, shape_type = "circle"):
         super().__init__(shape_type, shape_id)
-        self.radius = param_s[0]
+        self.radius = int(param_s[0])
 
 
     def get_area(self):

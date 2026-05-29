@@ -4,7 +4,7 @@ from shape import Shape
 class Square(Shape):
     def __init__(self, param_s, shape_id, shape_type = "square"):
         super().__init__(shape_type, shape_id)
-        self.side = param_s[0]
+        self.side = int(param_s[0])
 
 
     def get_area(self):
