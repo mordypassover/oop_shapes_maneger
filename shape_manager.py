@@ -38,7 +38,9 @@ class ShapeManager:
 
     def show_shapes_as_dicts(self):
         logger.info("getting all shapes dicts")
-        return [shape.to_dict() for shape in self.shapes]
+        if not self.shapes:
+            return "no shapes in list"
+        return [shape.to_dict() for shape in self.shapes].sort( key=lambda shape: shape["id"] )
 
 
     def update_shape(self, shape_id, new_data):
