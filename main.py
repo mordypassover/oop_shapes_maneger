@@ -1,3 +1,5 @@
+#https://github.com/mordypassover/oop_shapes_maneger.git
+
 from shape_manager import ShapeManager, logger
 
 
