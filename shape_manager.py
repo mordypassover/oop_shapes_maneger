@@ -4,7 +4,7 @@ import logging
 from square import Square
 from circle import Circle
 from rectangle import Rectangle
-from shape import Shape
+
 
 
 logging.basicConfig(level=logging.INFO, format='%(levelname)s | %(message)s  | %(asctime)s', encoding="utf-8")
@@ -24,8 +24,8 @@ class ShapeManager:
         if shape in shape_dict:
             try:
                 self.shapes.append(shape_dict[shape](param_s, shape_id=new_id))
-            except ValueError:
-                logging.error("input not valid!")
+            except ValueError as e:
+                logging.error(f"input not valid!,{e}")
                 raise
             logging.info("finished to create shape")
         else:
@@ -33,57 +33,63 @@ class ShapeManager:
 
 
     def get_all_shapes(self):
+        logger.info("getting all shapes from list")
         return self.shapes
 
     def show_shapes_as_dicts(self):
-        logger.info("getting all shapes")
-        return [shape.to_dict for shape in self.shapes]
+        logger.info("getting all shapes dicts")
+        return [shape.to_dict() for shape in self.shapes]
 
 
     def update_shape(self, shape_id, new_data):
+        logger.info(f"running update shape, for shape id {shape_id}")
         for instance in self.get_all_shapes():
-            if instance.get_id() == shape_id :
+            if instance.get_shape_id() == shape_id :
                 self.delete_shape(shape_id)
-                self.create_shape(instance.shape_type, new_data)
+                self.create_shape(instance.shape_type, new_data, forced_id=shape_id)
+                logger.info(f"updated id {shape_id} successfully")
                 return
         logger.warning(f"object with id - {shape_id} not found")
 
 
     def delete_shape(self, shape_id):
+        logger.info(f"running delete shape, for shape id {shape_id}")
         instance_list = self.get_all_shapes()
         for instance in instance_list:
-            if instance.get_id() == shape_id :
+            if instance.get_shape_id() == shape_id :
                 instance_list.remove(instance)
+                logger.info(f"deleted id {shape_id} successfully")
                 return
         logger.warning(f"object with id - {shape_id} not found")
 
 
     def save_to_json(self):
-        json_loadable_list = [shape_inst.__dict__ for shape_inst in self.shapes]
+        logger.info("uploading all shapes to json")
+        json_loadable_list = [shape.to_dict() for shape in self.shapes]
         with open("shapes.json", "w", encoding="utf-8") as file:
             json.dump(json_loadable_list, file, ensure_ascii=False, indent=4)
 
 
     def load_from_json(self):
         if  os.path.getsize("shapes.json") == 0:
-            logger.info("shapes.json is empty or does not exist. Starting fresh.")
+            logger.info("shapes.json is empty  Starting fresh")
             return
 
         with open("shapes.json", "r", encoding="utf-8") as f:
             data = json.load(f)
             for item in data:
-                shape_type = item.get('shape_type')
+                shape_type = item.get('type')
                 if shape_type == "circle":
                     params = (item.get('radius'),)
                 elif shape_type == "square":
                     params = (item.get('side'),)
                 elif shape_type == "rectangle":
-                    params = (item.get('width'), item.get('height'))
+                    params = (item.get("length"), item.get('width'))
                 else:
                     logger.warning("shape not suported")
 
 
-                self.create_shape(shape_type, params )
+                self.create_shape(shape_type, params, forced_id=item.get("id"))
 
         logger.info(f"successfully loaded {len(data)} shapes from json ")
 
@@ -102,6 +108,9 @@ if __name__ == "__main__":
     print(sm.get_all_shapes() )
     print(sm.get_all_shapes()[1].shape_id)
     print(sm.get_all_shapes()[2].shape_type)
+    sm.update_shape(2, (2,))
+    sm.delete_shape(3)
+    print(sm.show_shapes_as_dicts())
 
     sm.save_to_json()
 
