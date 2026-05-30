@@ -17,6 +17,13 @@ class ShapeManager:
         self.load_from_json()
 
     def create_shape(self, shape: str, param_s: tuple, forced_id=None):
+        """
+        creates shapes
+        :param shape:
+        :param param_s:
+        :param forced_id: if an id is entered, it wile be the id else oto id
+        :return:
+        """
         logging.info("started to create a shape")
 
         new_id = forced_id if forced_id is not None else self.get_id()
@@ -33,11 +40,17 @@ class ShapeManager:
 
 
     def get_all_shapes(self):
+        """
+        gets all shape instanses
+        """
         logger.info("getting all shapes from list")
         self.sort_shapes()
         return self.shapes
 
     def show_shapes_as_dicts(self):
+        """
+        gives a list of all shapes as dicts
+        """
         logger.info("getting all shapes dicts")
         if not self.shapes:
             return "no shapes in list"
@@ -45,6 +58,12 @@ class ShapeManager:
 
 
     def update_shape(self, shape_id, new_data):
+        """
+        gets id, validates removes and recreates new shape with same id and new params
+        :param shape_id:
+        :param new_data:
+        :return: updated shape
+        """
         logger.info(f"running update shape, for shape id {shape_id}")
         for instance in self.get_all_shapes():
             if instance.get_shape_id() == shape_id :
@@ -56,6 +75,10 @@ class ShapeManager:
 
 
     def delete_shape(self, shape_id):
+        """
+        erases shape from list
+        :param shape_id:
+        """
         logger.info(f"running delete shape, for shape id {shape_id}")
         instance_list = self.get_all_shapes()
         for instance in instance_list:
@@ -67,6 +90,9 @@ class ShapeManager:
 
 
     def save_to_json(self):
+        """
+        loads all shapes to json file
+        """
         logger.info("uploading all shapes to json")
         json_loadable_list = [shape.to_dict() for shape in self.shapes]
         with open("shapes.json", "w", encoding="utf-8") as file:
@@ -74,6 +100,9 @@ class ShapeManager:
 
 
     def load_from_json(self):
+        """
+        gets all shapes from json file
+        """
         if  os.path.getsize("shapes.json") == 0:
             logger.info("shapes.json is empty  Starting fresh")
             return
@@ -98,12 +127,18 @@ class ShapeManager:
 
 
     def get_id(self):
+        """
+        gets shape id
+        """
         logger.info("started looking for id")
         new_id =  1 if not self.shapes else (max(shape.shape_id for shape in self.shapes) +1)
         logger.info("got new id")
         return new_id
 
     def sort_shapes(self):
+        """
+        sorts shapes list by id
+        """
         self.shapes.sort(key=lambda shape: shape.shape_id)
 
 if __name__ == "__main__":
