@@ -6,6 +6,8 @@ class Circle(Shape):
 
     def __init__(self, param_s, shape_id, shape_type = "circle"):
         super().__init__(shape_type, shape_id)
+        if len(param_s) != 1:
+            raise ValueError("circle needs 1 param")
         self.radius = int(param_s[0])
 
 

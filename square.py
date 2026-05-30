@@ -4,6 +4,8 @@ from shape import Shape
 class Square(Shape):
     def __init__(self, param_s, shape_id, shape_type = "square"):
         super().__init__(shape_type, shape_id)
+        if len(param_s) != 1:
+            raise ValueError("square needs 1 param")
         self.side = int(param_s[0])
 
 
@@ -19,3 +21,4 @@ class Square(Shape):
             "type": self.shape_type,
             "side": self.side
             }
+

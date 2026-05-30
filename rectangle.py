@@ -4,6 +4,8 @@ from shape import Shape
 class Rectangle(Shape):
     def __init__(self, param_s,shape_id , shape_type = "rectangle"):
         super().__init__(shape_type, shape_id)
+        if len(param_s) != 2:
+            raise ValueError("rectangle needs 2 params")
         self.length_width = tuple(int(param) for param in param_s)
 
     def get_area(self):
