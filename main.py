@@ -4,6 +4,10 @@ from shape_manager import ShapeManager, logger
 
 
 def get_shape_params():
+    """
+    gets param or params as a tuple to unpack to shape instenses
+    :return: params if ar valid els none
+    """
     user_input = input("enter shape param (if more than 1, add space!): ")
 
     try:
@@ -16,6 +20,12 @@ def get_shape_params():
 
 
 def add_shape(manager_class):
+    """
+    :param manager_class:
+    runs create_shape() in manager_class if gets params
+
+    """
+
     shape = input("enter shape ( square, circle, rectangle): ")
     param_s = get_shape_params()
     if param_s is not None:
@@ -23,6 +33,10 @@ def add_shape(manager_class):
 
 
 def show_all_shapes(manager_class):
+    """
+    :param manager_class:
+    prints all instenses
+    """
     print(manager_class.show_shapes_as_dicts())
 
 
