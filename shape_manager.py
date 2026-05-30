@@ -26,7 +26,7 @@ class ShapeManager:
                 self.shapes.append(shape_dict[shape](param_s, shape_id=new_id))
             except ValueError as e:
                 logging.error(f"input not valid!,{e}")
-                raise
+
             logging.info("finished to create shape")
         else:
             logging.error(f"shape - {shape} not supported")
@@ -34,13 +34,14 @@ class ShapeManager:
 
     def get_all_shapes(self):
         logger.info("getting all shapes from list")
+        self.sort_shapes()
         return self.shapes
 
     def show_shapes_as_dicts(self):
         logger.info("getting all shapes dicts")
         if not self.shapes:
             return "no shapes in list"
-        return [shape.to_dict() for shape in self.shapes].sort( key=lambda shape: shape["id"] )
+        return [shape.to_dict() for shape in self.get_all_shapes()]
 
 
     def update_shape(self, shape_id, new_data):
@@ -101,6 +102,9 @@ class ShapeManager:
         new_id =  1 if not self.shapes else (max(shape.shape_id for shape in self.shapes) +1)
         logger.info("got new id")
         return new_id
+
+    def sort_shapes(self):
+        self.shapes.sort(key=lambda shape: shape.shape_id)
 
 if __name__ == "__main__":
     sm = ShapeManager()
