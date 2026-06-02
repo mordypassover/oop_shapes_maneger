@@ -11,6 +11,9 @@ class ShapeCreate(BaseModel):
     shape_name:str
     param_s:str
 
+class UpdateShape(BaseModel):
+    param_s :str
+
 
 @app.get("/shapes")
 def get_all_shapes_as_dicts():
