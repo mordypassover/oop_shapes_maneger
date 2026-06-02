@@ -27,7 +27,7 @@ def get_1_shape_by_id(id : int,  response: Response):
     return {"status" : "shape id not found"}
 
 
-@app.post("/shapes/")
+@app.post("/shapes/",status_code=201)
 async def add_shape(user_data:ShapeCreate):
     shape_str = user_data.shape_name
     param_s_str = user_data.param_s
