@@ -25,6 +25,13 @@ def get_all_shapes_area_sum():
     return {"shape area": SHAPE_MANAGER.get_all_shapes_area_sum()}
 
 
+@app.get("/shapes/count")
+def get_shape_list_len():
+    return {"number of shapes":len(SHAPE_MANAGER.shapes)}
+
+
+
+
 @app.get("/shapes/{shape_id}", status_code=200)
 def get_1_shape_by_id(shape_id : int,  response: Response):
     try:
@@ -60,4 +67,3 @@ def remove_shape(shape_id:int):
         SHAPE_MANAGER.save_to_json()
     else:
         Response.status_code = 404
-
