@@ -144,6 +144,16 @@ class ShapeManager:
     def get_all_shapes_area_sum(self):
         return sum([inst.get_area for inst in self.shapes]) if self.shapes else 0
 
+    def get_single_shape(self,shape_id):
+
+        all_shapes = self.show_shapes_as_dicts()
+        for shape in all_shapes:
+            if shape_id == shape["id"]:
+                return shape
+        logger.error(f"id - {shape_id} not found")
+        raise Exception("shape not found")
+
+
 
 if __name__ == "__main__":
     sm = ShapeManager()
@@ -155,6 +165,7 @@ if __name__ == "__main__":
     print(sm.get_all_shapes()[2].shape_type)
     sm.update_shape(2, (2,))
     sm.delete_shape(3)
+    print(sm.get_single_shape(1))
     print(sm.show_shapes_as_dicts())
 
     sm.save_to_json()
