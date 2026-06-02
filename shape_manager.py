@@ -141,6 +141,10 @@ class ShapeManager:
         """
         self.shapes.sort(key=lambda shape: shape.shape_id)
 
+    def get_all_shapes_area_sum(self):
+        return sum([inst.get_area for inst in self.shapes]) if self.shapes else 0
+
+
 if __name__ == "__main__":
     sm = ShapeManager()
     sm.create_shape("circle",(2,))
