@@ -20,6 +20,11 @@ def get_all_shapes_as_dicts():
     return SHAPE_MANAGER.show_shapes_as_dicts()
 
 
+@app.get("/shapes/total-area")
+def get_all_shapes_area_sum():
+    return {"shape area": SHAPE_MANAGER.get_all_shapes_area_sum()}
+
+
 @app.get("/shapes/{shape_id}", status_code=200)
 def get_1_shape_by_id(shape_id : int,  response: Response):
     try:
@@ -56,7 +61,3 @@ def remove_shape(shape_id:int):
     else:
         Response.status_code = 404
 
-
-@app.get("/shapes/total-area")
-def get_all_shapes_area_sum():
-    return {"shape area": SHAPE_MANAGER.get_all_shapes_area_sum()}
