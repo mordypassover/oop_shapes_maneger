@@ -48,5 +48,10 @@ def update_shape(shape_id:int,user_data:UpdateShape):
         Response.status_code = 404
 
 
-
-
+@app.delete("/shapes/{shape_id}",status_code=200)
+def remove_shape(shape_id:int):
+    if shape_id in [shape.to_dict()["id"] for shape in SHAPE_MANAGER.shapes]:
+        SHAPE_MANAGER.delete_shape(shape_id)
+        SHAPE_MANAGER.save_to_json()
+    else:
+        Response.status_code = 404
