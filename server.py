@@ -30,6 +30,13 @@ def get_shape_list_len():
     return {"number of shapes":len(SHAPE_MANAGER.shapes)}
 
 
+@app.get("/shapes/type/{shape_type} ",status_code=200)
+def filter_by_type(shape_type:str):
+    if shape_type in ["square", "circle","rectangle"]:
+        return { shape_type :list(filter(lambda shape: shape["type"] == shape_type, SHAPE_MANAGER.shapes))}
+    else:
+        Response.status_code = 404
+        return {shape_type : "not supported"}
 
 
 @app.get("/shapes/{shape_id}", status_code=200)
