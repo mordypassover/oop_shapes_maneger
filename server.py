@@ -1,12 +1,15 @@
-from requests import Response
-
 import shape_manager
 from fastapi import FastAPI, Response
+from pydantic import BaseModel
 import uvicorn
 
 
 app = FastAPI()
 SHAPE_MANAGER = shape_manager.ShapeManager()
+
+class ShapeCreate(BaseModel):
+    shape_name:str
+    param_s:str
 
 
 @app.get("/shapes")
@@ -22,3 +25,11 @@ def get_1_shape_by_id(id : int,  response: Response):
             return shape
     response.status_code = 404
     return {"status" : "shape id not found"}
+
+
+@app.post("/shapes/")
+async def add_shape(user_data:ShapeCreate):
+    shape_str = user_data.shape_name
+    param_s_str = user_data.param_s
+    SHAPE_MANAGER.create_shape(shape_str,tuple(param_s_str.split()))
+    SHAPE_MANAGER.save_to_json()
