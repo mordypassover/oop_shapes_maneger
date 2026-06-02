@@ -33,3 +33,17 @@ async def add_shape(user_data:ShapeCreate):
     param_s_str = user_data.param_s
     SHAPE_MANAGER.create_shape(shape_str,tuple(param_s_str.split()))
     SHAPE_MANAGER.save_to_json()
+
+
+@app.put("/shapes/{shape_id}")
+def update_shape(shape_id:int,user_data:UpdateShape):
+    param_s_str = user_data.param_s
+    if shape_id in [shape.to_dict()["id"] for shape in SHAPE_MANAGER.shapes]:
+        SHAPE_MANAGER.update_shape(shape_id, tuple(param_s_str.split()))
+        SHAPE_MANAGER.save_to_json()
+    else:
+        Response.status_code = 404
+
+
+
+
