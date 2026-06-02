@@ -55,3 +55,8 @@ def remove_shape(shape_id:int):
         SHAPE_MANAGER.save_to_json()
     else:
         Response.status_code = 404
+
+
+@app.get("/shapes/total-area")
+def get_all_shapes_area_sum():
+    return {"shape area": SHAPE_MANAGER.get_all_shapes_area_sum()}
