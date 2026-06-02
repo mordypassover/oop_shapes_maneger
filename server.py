@@ -20,14 +20,14 @@ def get_all_shapes_as_dicts():
     return SHAPE_MANAGER.show_shapes_as_dicts()
 
 
-@app.get("/shapes/{id}", status_code=200)
-def get_1_shape_by_id(id : int,  response: Response):
-    all_shapes = SHAPE_MANAGER.show_shapes_as_dicts()
-    for shape in all_shapes:
-        if int(id) == shape["id"]:
-            return shape
-    response.status_code = 404
-    return {"status" : "shape id not found"}
+@app.get("/shapes/{shape_id}", status_code=200)
+def get_1_shape_by_id(shape_id : int,  response: Response):
+    try:
+        shape = SHAPE_MANAGER.get_single_shape(shape_id)
+        return shape
+    except IndexError as e:
+        response.status_code = 404
+        return {"status" : e}
 
 
 @app.post("/shapes/",status_code=201)
