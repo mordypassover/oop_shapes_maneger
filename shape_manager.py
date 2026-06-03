@@ -154,6 +154,30 @@ class ShapeManager:
         raise Exception("shape not found")
 
 
+    def shape_search(self,shape_name):
+        """
+        :param shape_name: serched shape
+        :return: None or dict(shape name : [instenses])
+        """
+        shapes = self.show_shapes_as_dicts()
+
+        if shape_name not in ("square", "circle", "rectangle"):
+            logger.error("got bad shape name")
+            raise ValueError(f"shape {shape_name} not supported")
+
+        logger.info(f"getting all {shape_name} instances")
+        shape_insts = []
+        for s in shapes:
+            if s["type"] == shape_name:
+                shape_insts.append(s)
+        logger.info(f"finished getting all {shape_name} instances")
+
+        if not shape_insts:
+            logger.info(f"no instances of {shape_name}")
+            return
+
+        return {shape_name : shape_insts}
+
 
 if __name__ == "__main__":
     sm = ShapeManager()
