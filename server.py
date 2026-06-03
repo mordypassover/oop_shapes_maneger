@@ -1,5 +1,5 @@
 import shape_manager
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response ,HTTPException
 from pydantic import BaseModel
 import uvicorn
 
@@ -29,6 +29,13 @@ def get_all_shapes_area_sum():
 def get_shape_list_len():
     return {"number of shapes":len(SHAPE_MANAGER.shapes)}
 
+
+@app.get("/shapes/type/{type}")
+def get_class_insts(shape_type:str):
+    try:
+        return SHAPE_MANAGER.shape_search(shape_type)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=e)
 
 
 
