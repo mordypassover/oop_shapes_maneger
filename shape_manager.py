@@ -174,7 +174,6 @@ class ShapeManager:
 
         if not shape_insts:
             logger.info(f"no instances of {shape_name}")
-            return
 
         return {shape_name : shape_insts}
 
