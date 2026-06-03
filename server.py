@@ -42,6 +42,9 @@ def get_class_insts(shape_type):
 
 @app.get("/shapes/{shape_id}", status_code=200)
 def get_1_shape_by_id(shape_id : int,  response: Response):
+    """
+    trys to run get_single_shape()
+    """
     try:
         shape = SHAPE_MANAGER.get_single_shape(shape_id)
         return shape
@@ -51,6 +54,9 @@ def get_1_shape_by_id(shape_id : int,  response: Response):
 
 @app.post("/shapes/",status_code=201)
 async def add_shape(user_data:ShapeCreate):
+    """
+    when creating a shape with more then 1 param (rectangle) must enter number then spase then number
+    """
     shape_str = user_data.shape_name
     param_s_str = user_data.param_s
     SHAPE_MANAGER.create_shape(shape_str,tuple(param_s_str.split()))
