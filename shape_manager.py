@@ -142,7 +142,7 @@ class ShapeManager:
         self.shapes.sort(key=lambda shape: shape.shape_id)
 
     def get_all_shapes_area_sum(self):
-        return sum([inst.get_area for inst in self.shapes]) if self.shapes else 0
+        return sum([inst.get_area() for inst in self.shapes]) if self.shapes else 0
 
     def get_single_shape(self,shape_id):
 
@@ -190,6 +190,6 @@ if __name__ == "__main__":
     sm.delete_shape(3)
     print(sm.get_single_shape(1))
     print(sm.show_shapes_as_dicts())
-
+    print("\n\n", sm.get_all_shapes_area_sum())
     sm.save_to_json()
 
