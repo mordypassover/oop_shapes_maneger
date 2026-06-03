@@ -45,8 +45,7 @@ def get_1_shape_by_id(shape_id : int,  response: Response):
         shape = SHAPE_MANAGER.get_single_shape(shape_id)
         return shape
     except IndexError as e:
-        response.status_code = 404
-        return {"status" : e}
+        raise HTTPException(status_code=404, detail={"error" : e})
 
 
 @app.post("/shapes/",status_code=201)
@@ -60,17 +59,19 @@ async def add_shape(user_data:ShapeCreate):
 @app.put("/shapes/{shape_id}")
 def update_shape(shape_id:int,user_data:UpdateShape):
     param_s_str = user_data.param_s
-    if shape_id in [shape.to_dict()["id"] for shape in SHAPE_MANAGER.shapes]:
-        SHAPE_MANAGER.update_shape(shape_id, tuple(param_s_str.split()))
-        SHAPE_MANAGER.save_to_json()
-    else:
-        Response.status_code = 404
+
+    if shape_id not in [shape["id"] for shape in SHAPE_MANAGER.show_shapes_as_dicts()]:
+        raise HTTPException(status_code = 404, detail={"error" :f"shape id {shape_id} not found"})
+
+    SHAPE_MANAGER.update_shape(shape_id, tuple(param_s_str.split()))
+    SHAPE_MANAGER.save_to_json()
 
 
 @app.delete("/shapes/{shape_id}",status_code=200)
 def remove_shape(shape_id:int):
-    if shape_id in [shape.to_dict()["id"] for shape in SHAPE_MANAGER.shapes]:
-        SHAPE_MANAGER.delete_shape(shape_id)
-        SHAPE_MANAGER.save_to_json()
-    else:
-        Response.status_code = 404
+    if shape_id not in [shape["id"] for shape in SHAPE_MANAGER.show_shapes_as_dicts()]:
+        raise HTTPException(status_code=404, detail={"error" :f"shape id {shape_id} not found"})
+
+    SHAPE_MANAGER.delete_shape(shape_id)
+    SHAPE_MANAGER.save_to_json()
+
