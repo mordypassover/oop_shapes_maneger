@@ -30,13 +30,13 @@ def get_shape_list_len():
     return {"number of shapes":len(SHAPE_MANAGER.shapes)}
 
 
-@app.get("/shapes/type/{type}")
-def get_class_insts(shape_type:str):
+@app.get("/shapes/type/{shape_type}")
+def get_class_insts(shape_type):
     try:
-        return SHAPE_MANAGER.shape_search(shape_type)
+        wanted =SHAPE_MANAGER.shape_search(shape_type)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=e)
-
+    return wanted
 
 
 @app.get("/shapes/{shape_id}", status_code=200)
