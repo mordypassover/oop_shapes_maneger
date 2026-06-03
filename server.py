@@ -22,7 +22,8 @@ def get_all_shapes_as_dicts():
 
 @app.get("/shapes/total-area")
 def get_all_shapes_area_sum():
-    return {"shape area": SHAPE_MANAGER.get_all_shapes_area_sum()}
+    area =SHAPE_MANAGER.get_all_shapes_area_sum()
+    return {"shape area": area}
 
 
 @app.get("/shapes/count")
